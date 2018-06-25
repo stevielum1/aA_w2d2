@@ -27,6 +27,12 @@ class Board
     end
   end
   
+  def valid_pos?(pos)
+    x,y = pos
+    return false unless x.between?(0, 7) && y.between?(0, 7)
+    true
+  end
+  
   private
   
   def create_default_board
