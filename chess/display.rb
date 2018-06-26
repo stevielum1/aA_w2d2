@@ -35,5 +35,8 @@ end
 if __FILE__ == $PROGRAM_NAME
   b = Board.new
   d = Display.new(b)
-  d.render
+  pos = [2,5]
+  b[pos] = King.new(:black, b, [2,5])
+  p b[pos].moves
+
 end

@@ -1,21 +1,14 @@
-require_relative 'slideable'
 require_relative 'piece'
 
-class Rook < Piece
-  
-  include Slideable
-  
+class Pawn < Piece
   def initialize(symbol, board, pos)
     super(symbol, board, pos)
   end
   
   def symbol
-    "R"
+    "P"
   end
   
-  protected 
-  
   def move_dirs
-    horizontal_dirs
   end
 end

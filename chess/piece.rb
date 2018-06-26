@@ -13,6 +13,8 @@ class Piece
   end
   
   def empty?
+    return true if symbol == " "
+    return false
   end
   
   def valid_moves
