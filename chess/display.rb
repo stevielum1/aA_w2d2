@@ -12,21 +12,20 @@ class Display
   def render
     loop do
       system("clear")
-      print"*---------------*\n"
       @board.grid.each_with_index do |row, idx1|
         row.each_with_index do |square, idx2|
-          print "|"
+          # print "|"
           if [idx1, idx2] == @cursor.cursor_pos && !@cursor.selected
-            print "#{square.to_s}".colorize(:green)
+            print "#{square.to_s}".colorize(:red).bold.blink
           elsif [idx1, idx2] == @cursor.cursor_pos && @cursor.selected
-            print "#{square.to_s}".colorize(:blue)
+            print "#{square.to_s}".colorize(:blue).bold
           else
-            print "#{square.to_s}"
+            print "#{square.to_s}".colorize(:background => :light_white).bold if (idx1+idx2).odd?
+            print "#{square.to_s}".colorize(:background => :green).bold if (idx1+idx2).even?
           end
         end
-        print "|\n"
+        puts
       end
-      print "*---------------*\n"
       @cursor.get_input
     end
   end
@@ -39,7 +38,8 @@ if __FILE__ == $PROGRAM_NAME
   # b.move_piece([6,6],[4,6])
   # b.move_piece([0,3],[4,7])
   pos = [2,2]
-  b[pos] = Pawn.new(:white, b, [2,2])
+  b[pos] = Rook.new(:white, b, [2,2])
   b[pos].valid_moves.sort
-  # d.render
+  d = Display.new(b)
+  d.render
 end
