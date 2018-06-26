@@ -1,4 +1,5 @@
 require_relative 'piece'
+require_relative 'rook'
 require_relative 'null_piece'
 
 class Board
@@ -39,11 +40,16 @@ class Board
     @grid.each_with_index do |row, idx|
       row.map! do |square|
         if idx == 0 || idx == 1 || idx == 6 || idx == 7
-          square = Piece.new
+          square = Rook.new(:white, self, [0, 0])
         else
           square = NullPiece.instance
         end
       end
     end
   end
+end
+
+if __FILE__ == $PROGRAM_NAME
+  b = Board.new
+  p b
 end

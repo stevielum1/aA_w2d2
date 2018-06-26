@@ -32,3 +32,7 @@ class Piece
   end
   
 end
+# 
+# if __FILE__ == $PROGRAM_NAME
+#   r = Rook.new(:white, Board.new, [0, 0])
+# end
