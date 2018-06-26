@@ -26,7 +26,7 @@ class Board
   def move_piece(start_pos, end_pos)
     begin 
       raise RuntimeError.new("No piece at beginning position") if self[start_pos] == NullPiece.instance
-      raise RuntimeError.new("Piece at end position") if self[end_pos] != NullPiece.instance
+      raise RuntimeError.new("Piece at end position") if self[end_pos] != NullPiece.instance && self[end_pos].color == self[start_pos].color 
       self[start_pos].pos = end_pos
       self[end_pos], self[start_pos] = self[start_pos], NullPiece.instance
     rescue RuntimeError => e
@@ -79,6 +79,17 @@ class Board
       end
     end
     moves.flatten(1)
+  end
+  
+  def dup
+    new_board = Board.new
+    @grid.each_with_index do |row, idx1|
+      row.each_with_index do |square, idx2|
+        pos = [idx1, idx2]
+        square.instance_of?(NullPiece) ? new_board[pos] = NullPiece.instance : new_board[pos] = square.dup 
+      end
+    end
+    new_board
   end
   
   private
@@ -150,5 +161,6 @@ class Board
 end
 
 if __FILE__ == $PROGRAM_NAME
-  
+  b = Board.new
+  pos = [0,0]
 end

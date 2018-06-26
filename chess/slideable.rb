@@ -43,6 +43,7 @@ module Slideable
     next_possible = [x+dx,y+dy]
     while board.valid_pos?(next_possible) && (board[next_possible].empty? || board[next_possible].color == self.opponent_color)
       answer << next_possible 
+      break if board[next_possible].color == self.opponent_color
       x, y = next_possible
       next_possible = [x+dx,y+dy]
     end

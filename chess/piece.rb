@@ -18,6 +18,11 @@ class Piece
   end
   
   def valid_moves
+    possible_moves = moves
+    possible_moves.reject do |move| 
+      p move
+      move_into_check?(move) 
+    end
   end
   
   def pos=(val)
@@ -33,9 +38,15 @@ class Piece
     :white
   end
   
+  def moves
+  end
+  
   private
   
   def move_into_check?(end_pos)
+    board_copy = board.dup
+    board_copy.move_piece(pos, end_pos)
+    board_copy.in_check?(color)
   end
   
 end

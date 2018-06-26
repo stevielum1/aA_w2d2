@@ -34,8 +34,12 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   b = Board.new
-  b.move_piece([6,5],[5,5])
-  b.move_piece([1,4],[3,4])
-  b.move_piece([6,6],[4,6])
-  b.move_piece([0,3],[4,7])
+  # b.move_piece([6,5],[5,5])
+  # b.move_piece([1,4],[3,4])
+  # b.move_piece([6,6],[4,6])
+  # b.move_piece([0,3],[4,7])
+  pos = [2,2]
+  b[pos] = Pawn.new(:white, b, [2,2])
+  b[pos].valid_moves.sort
+  # d.render
 end
