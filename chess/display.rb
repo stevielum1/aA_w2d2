@@ -11,6 +11,7 @@ class Display
   
   def render
     loop do
+      system("clear")
       print"*---------------*\n"
       @board.grid.each_with_index do |row, idx1|
         row.each_with_index do |square, idx2|
