@@ -27,6 +27,7 @@ class Board
     begin 
       raise RuntimeError.new("No piece at beginning position") if self[start_pos] == NullPiece.instance
       raise RuntimeError.new("Piece at end position") if self[end_pos] != NullPiece.instance
+      self[start_pos].pos = end_pos
       self[end_pos], self[start_pos] = self[start_pos], NullPiece.instance
     rescue RuntimeError => e
       puts e.message
@@ -37,6 +38,47 @@ class Board
     x,y = pos
     return false unless x.between?(0, 7) && y.between?(0, 7)
     true
+  end
+  
+  def checkmate?(color)
+    if in_check?(color)
+      @grid.each do |row|
+        row.each do |square|
+          return true unless square.color == color && square.valid_moves.empty?
+        end
+      end
+    end
+    false
+  end
+  
+  def in_check?(color)
+    opponent_color = color_flipper(color)
+    opponent_moves = possible_team_moves(opponent_color)
+    defending_king_pos = find_position_king(color)
+    return true if opponent_moves.include?(defending_king_pos)
+    false
+  end
+  
+  def find_position_king(color)
+    @grid.each do |row|
+      row.each do |square|
+        return square.pos if square.instance_of?(King) && square.color == color
+      end
+    end
+    nil
+  end
+  
+  def possible_team_moves(color)
+    moves = []
+    @grid.each do |row|
+      row.each do |square|
+        if square.color == color
+          piece_moves = square.moves
+          moves << piece_moves
+        end
+      end
+    end
+    moves.flatten(1)
   end
   
   private
@@ -100,10 +142,13 @@ class Board
       end
     end
   end
+  
+  def color_flipper(color)
+    return :black if color == :white
+    :white
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
-  b = Board.new
-  p b
-  b.render
+  
 end

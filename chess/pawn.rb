@@ -48,6 +48,6 @@ class Pawn < Piece
     answer << [forward_dir+x,1+y]
     answer << [forward_dir+x,-1+y]
     
-    answer.select {|possible_move| (board[possible_move].symbol != " " && board[possible_move].color != self.color) && board.valid_pos?(possible_move)}
+    answer.select {|possible_move| board.valid_pos?(possible_move) && board[possible_move].color == self.opponent_color }
   end
 end

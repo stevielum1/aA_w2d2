@@ -7,7 +7,7 @@ module Stepable
       dx, dy = diff
       x, y = self.pos
       next_possible = [x+dx, y+dy]
-      answer << next_possible if board.valid_pos?(next_possible) && board[next_possible].empty?
+      answer << next_possible if board.valid_pos?(next_possible) && (board[next_possible].empty? ||board[next_possible].color == self.opponent_color)
     end
     answer
   end

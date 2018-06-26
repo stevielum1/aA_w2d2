@@ -28,6 +28,11 @@ class Piece
     "P"
   end
   
+  def opponent_color
+    return :black if color == :white
+    :white
+  end
+  
   private
   
   def move_into_check?(end_pos)
