@@ -20,9 +20,11 @@ class Game
       start_pos = nil
       end_pos = nil
       display.render
+      notify_players
       while end_pos.nil?
         input = current_player.make_move(board)
         display.render
+        notify_players
         if start_pos.nil? && current_player.display.cursor.selected
           start_pos = input
           current_player.display.cursor.toggle_selected
@@ -39,6 +41,7 @@ class Game
   private
   
   def notify_players
+    puts "#{current_player.color}'s turn"
   end
   
   def swap_turn!
