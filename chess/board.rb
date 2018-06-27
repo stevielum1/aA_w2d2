@@ -24,14 +24,23 @@ class Board
   end
   
   def move_piece(start_pos, end_pos)
-    begin 
-      raise RuntimeError.new("No piece at beginning position") if self[start_pos] == NullPiece.instance
-      raise RuntimeError.new("Piece at end position") if self[end_pos] != NullPiece.instance && self[end_pos].color == self[start_pos].color 
+    begin
+      starting_piece = self[start_pos]
+      valid_end_pos = starting_piece.valid_moves
+      raise RuntimeError.new("Not a valid move") unless valid_end_pos.include?(end_pos)
+      #begin 
+      # raise RuntimeError.new("No piece at beginning position") if self[start_pos] == NullPiece.instance
+      # raise RuntimeError.new("Piece at end position") if self[end_pos] != NullPiece.instance && self[end_pos].color == self[start_pos].color 
       self[start_pos].pos = end_pos
       self[end_pos], self[start_pos] = self[start_pos], NullPiece.instance
     rescue RuntimeError => e
       puts e.message
     end
+  end
+  
+  def move_piece!(start_pos, end_pos)
+    self[start_pos].pos = end_pos
+    self[end_pos], self[start_pos] = self[start_pos], NullPiece.instance
   end
   
   def valid_pos?(pos)

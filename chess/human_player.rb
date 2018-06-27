@@ -7,7 +7,7 @@ class HumanPlayer < Player
   end
   
   def make_move(board)
-    
+    display.cursor.get_input
   end
   
 end

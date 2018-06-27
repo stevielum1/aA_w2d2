@@ -19,10 +19,7 @@ class Piece
   
   def valid_moves
     possible_moves = moves
-    possible_moves.reject do |move| 
-      p move
-      move_into_check?(move) 
-    end
+    possible_moves.reject { |move| move_into_check?(move) }
   end
   
   def pos=(val)
@@ -45,7 +42,7 @@ class Piece
   
   def move_into_check?(end_pos)
     board_copy = board.dup
-    board_copy.move_piece(pos, end_pos)
+    board_copy.move_piece!(pos, end_pos)
     board_copy.in_check?(color)
   end
   
